@@ -27,10 +27,12 @@ REFERENCE_SOURCE_DIR = REFERENCE_ROOT / "source"
 REFERENCE_MODEL_DIR = REFERENCE_ROOT / "model"
 sys.path.insert(0, str(REFERENCE_SOURCE_DIR))
 
-from RL_CODEX_2 import (  # noqa: E402
-    add_features,
-    simulate_portfolio,
-)
+import importlib.util
+spec = importlib.util.spec_from_file_location("rl_codex_2", REFERENCE_SOURCE_DIR / "Codex's First 3 Codes!/RL_CODEX_2.py")
+rl_codex_2 = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(rl_codex_2)
+add_features = rl_codex_2.add_features
+simulate_portfolio = rl_codex_2.simulate_portfolio
 
 
 def load_reference_universe() -> dict[str, pd.DataFrame]:
